@@ -1,0 +1,2 @@
+Selection	View	Channel	Begin Time (s)	End Time (s)	Low Freq (Hz)	High Freq (Hz)	CALL
+1	Spectrogram 1	1	32.167852272	62.071204860	577.7	5055.1	Playback

@@ -1,0 +1,3 @@
+Selection	View	Channel	Begin Time (s)	End Time (s)	Low Freq (Hz)	High Freq (Hz)	Call
+1	Spectrogram 1	1	30.785775876	60.970824801	1444.3	8521.4	Playback
+7	Spectrogram 1	1	277.006080875	277.578218905	932.8	3982.5	WBNU
