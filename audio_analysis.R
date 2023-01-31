@@ -39,7 +39,7 @@ novdat
 audio.data=bind_rows(febdat, novdat)
 
 #now import behavior data and then combine it with the audio data
-behavior.data=read.csv("Data/Thesis behavior data combined_nonotes.csv", na.strings="N/A")
+behavior.data=read.csv("Data/Thesis behavior data combined.csv", na.strings="N/A")
 behavior.data
 
 #merge the behavior and audio data
@@ -47,3 +47,6 @@ global.data=left_join(behavior.data, audio.data, by=c("Audio.code"="filename"))
 
 global.data
 #write.csv(dat,"feb_data.csv")
+
+names(global.data)
+global.data$Treatment
