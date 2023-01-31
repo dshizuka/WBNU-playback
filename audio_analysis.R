@@ -3,6 +3,7 @@
 #R packages to load
 library(lubridate)
 library(stringr)
+library(tidyverse)
 
 #file organization
 #path names to february selection tables
@@ -23,11 +24,26 @@ no.bouts=sapply(feb.data, function(x) nrow(x)-1)
 
 #extract metadata from file names
 feb_filenames=list.files("Data/February audio data")
-trial=str_sub(feb_filenames, start=1, end=2)
-month=str_sub(feb_filenames, start=4, end=6)
-treatment=str_sub(feb_filenames, start=8, end=9)
+feb_filename_short=str_sub(feb_filenames, start=1, end=9)
 
-dat=data.frame(trial, month, treatment, no.bouts)
-dat
+febdat=data.frame(filename=feb_filename_short, no.bouts=no.bouts)
+febdat
 
-write.csv(dat,"feb_data.csv")
+### now do the same thing with november data
+nov.data=lapply(list.files("Data/November audio data", full.names=T), function(x) read.table(x, sep="\t", header=T))
+nov.no.bouts=sapply(feb.data, function(x) nrow(x)-1)
+nov_filename_short=str_sub(list.files("Data/November audio data"), start=1, end=9)
+novdat=data.frame(filename=nov_filename_short, no.bouts=nov.no.bouts)
+novdat
+
+audio.data=bind_rows(febdat, novdat)
+
+#now import behavior data and then combine it with the audio data
+behavior.data=read.csv("Data/Thesis behavior data combined_nonotes.csv", na.strings="N/A")
+behavior.data
+
+#merge the behavior and audio data
+global.data=left_join(behavior.data, audio.data, by=c("Audio.code"="filename"))
+
+global.data
+#write.csv(dat,"feb_data.csv")
