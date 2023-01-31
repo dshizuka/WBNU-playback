@@ -50,3 +50,20 @@ global.data
 
 names(global.data)
 global.data$Treatment
+global.data$HD
+
+#ANOVA for HD
+fit=aov(HD~Treatment, data=global.data)
+summary(fit)
+
+#Post-hoc comparisons (Tukey Honest Significant Differences test)
+TukeyHSD(fit)
+
+#Boxplot for HD, base R way:
+boxplot(HD~Treatment, data=global.data)
+
+#Boxplot for HD, ggplot way:
+p=ggplot(data=global.data, aes(x=Treatment, y=HD)) +
+  geom_boxplot() +
+  theme_classic() 
+p
