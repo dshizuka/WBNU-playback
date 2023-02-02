@@ -51,13 +51,42 @@ global.data
 names(global.data)
 global.data$Treatment
 global.data$HD
+global.data$VD
+global.data$no.bouts
+
+#changing vertical Y/N data into numeric to look at significance
+DICDV_1=global.data$DICDV
+DICDV_1[DICDV_1=="Y"]=1
+DICDV_1[DICDV_1=="N"]=0
+DICDV_1=as.numeric(DICDV_1)
+DICDV_1
+
+DIAH_1=global.data$DIAH
+DIAH_1[DIAH_1=="Y"]=1
+DIAH_1[DIAH_1=="N"]=0
+DIAH_1=as.numeric(DIAH_1)
+DIAH_1
+#sum(DDIAH~global.data$Treatment)
+
 
 #ANOVA for HD
-fit=aov(HD~Treatment, data=global.data)
-summary(fit)
+fit_HD=aov(HD~Treatment, data=global.data)
+fit_VD=aov(VD~Treatment, data=global.data)
+fit_bout=aov(no.bouts~Treatment, data=global.data)
+fit_DICDV=aov(DICDV_1~Treatment, data=global.data)
+fit_DIAH=aov(DIAH_1~Treatment, data=global.data)
+summary(fit_HD)
+summary(fit_VD)
+summary(fit_bout)
+summary(fit_DICDV)
+summary(fit_DIAH)
 
 #Post-hoc comparisons (Tukey Honest Significant Differences test)
-TukeyHSD(fit)
+TukeyHSD(fit_HD)
+TukeyHSD(fit_VD)
+TukeyHSD(fit_bout)
+TukeyHSD(fit_DICDV)
+TukeyHSD(fit_DIAH)
 
 #Boxplot for HD, base R way:
 boxplot(HD~Treatment, data=global.data)
