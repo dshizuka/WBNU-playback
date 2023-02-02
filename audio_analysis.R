@@ -31,7 +31,7 @@ febdat
 
 ### now do the same thing with november data
 nov.data=lapply(list.files("Data/November audio data", full.names=T), function(x) read.table(x, sep="\t", header=T))
-nov.no.bouts=sapply(feb.data, function(x) nrow(x)-1)
+nov.no.bouts=sapply(nov.data, function(x) nrow(x)-1)
 nov_filename_short=str_sub(list.files("Data/November audio data"), start=1, end=9)
 novdat=data.frame(filename=nov_filename_short, no.bouts=nov.no.bouts)
 novdat
@@ -67,3 +67,4 @@ p=ggplot(data=global.data, aes(x=Treatment, y=HD)) +
   geom_boxplot() +
   theme_classic() 
 p
+
