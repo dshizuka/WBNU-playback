@@ -22,18 +22,28 @@ feb.data
 #calculate number of selections
 no.bouts=sapply(feb.data, function(x) nrow(x)-1)
 
+#calculate bout lengths for a trial
+feb.data[[1]]$End.Time..s.-feb.data[[1]]$Begin.Time..s.
+
+#calculate mean bout lengths for a trial
+mean(feb.data[[1]]$End.Time..s.-feb.data[[1]]$Begin.Time..s.)
+
+#calculate mean bout length for all data after removing the first line
+mean.bout.feb=sapply(feb.data, function(x) mean(x$End.Time..s.[-1]-x$Begin.Time..s.[-1]))
+
 #extract metadata from file names
 feb_filenames=list.files("Data/February audio data")
 feb_filename_short=str_sub(feb_filenames, start=1, end=9)
 
-febdat=data.frame(filename=feb_filename_short, no.bouts=no.bouts)
+febdat=data.frame(filename=feb_filename_short, no.bouts=no.bouts, mean.bout.length=mean.bout.feb)
 febdat
 
 ### now do the same thing with november data
 nov.data=lapply(list.files("Data/November audio data", full.names=T), function(x) read.table(x, sep="\t", header=T))
 nov.no.bouts=sapply(nov.data, function(x) nrow(x)-1)
+mean.bout.nov=sapply(nov.data, function(x) mean(x$End.Time..s.[-1]-x$Begin.Time..s.[-1]))
 nov_filename_short=str_sub(list.files("Data/November audio data"), start=1, end=9)
-novdat=data.frame(filename=nov_filename_short, no.bouts=nov.no.bouts)
+novdat=data.frame(filename=nov_filename_short, no.bouts=nov.no.bouts, mean.bout.length=mean.bout.nov)
 novdat
 
 audio.data=bind_rows(febdat, novdat)
@@ -75,11 +85,13 @@ fit_VD=aov(VD~Treatment, data=global.data)
 fit_bout=aov(no.bouts~Treatment, data=global.data)
 fit_DICDV=aov(DICDV_1~Treatment, data=global.data)
 fit_DIAH=aov(DIAH_1~Treatment, data=global.data)
+fit_boutlength=aov(mean.bout.length~Treatment, data=global.data)
 summary(fit_HD)
 summary(fit_VD)
 summary(fit_bout)
 summary(fit_DICDV)
 summary(fit_DIAH)
+summary(fit_boutlength)
 
 #Post-hoc comparisons (Tukey Honest Significant Differences test)
 TukeyHSD(fit_HD)
@@ -87,6 +99,7 @@ TukeyHSD(fit_VD)
 TukeyHSD(fit_bout)
 TukeyHSD(fit_DICDV)
 TukeyHSD(fit_DIAH)
+TukeyHSD(fit_boutlength)
 
 #Boxplot for HD, base R way:
 boxplot(HD~Treatment, data=global.data)
@@ -96,4 +109,6 @@ p=ggplot(data=global.data, aes(x=Treatment, y=HD)) +
   geom_boxplot() +
   theme_classic() 
 p
+
+boxplot(mean.bout.length~Treatment, data=global.data)
 
