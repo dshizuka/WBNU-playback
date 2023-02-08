@@ -110,5 +110,33 @@ p=ggplot(data=global.data, aes(x=Treatment, y=HD)) +
   theme_classic() 
 p
 
+#playing around with different ggplots:
+q=ggplot(data=global.data, aes(x=HD, fill=Treatment)) +
+  geom_histogram(alpha=0.7, position='identity', color="black") +
+  scale_fill_manual(values=c("red", "yellow", "blue")) +
+  facet_grid(rows=vars(Treatment)) +
+  theme_classic()
+q
+
+ggplot(data=global.data, aes(x=HD, fill=Treatment)) +
+  geom_density(alpha=0.5) +
+  theme_classic()
+
+ggplot(data=global.data, aes(x= Treatment, y=HD, fill=Treatment)) +
+  geom_violin() +
+  scale_fill_brewer(palette="Blues") +
+  ylab("Horizontal Approach Distance")
+
+HDplot=ggplot(data=global.data, aes(x= Treatment, y=HD, fill=Treatment)) +
+  geom_boxplot() +
+  scale_fill_brewer(palette="RdYlBu") +
+  ylab("Horizontal Approach Distance (m)")
+
+HDplot
+
+HDplot + scale_x_discrete(name ="Treatment", 
+                     limits=c("Control","Low","High"))
+
+
 boxplot(mean.bout.length~Treatment, data=global.data)
 
