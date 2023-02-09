@@ -1,0 +1,3 @@
+Selection	View	Channel	Begin Time (s)	End Time (s)	Low Freq (Hz)	High Freq (Hz)	Call	Note Number
+1	Spectrogram 1	1	30.785775876	60.970824801	1444.300	8521.400	Playback	
+7	Spectrogram 1	1	277.006080875	277.578218905	932.800	3982.500	quank	2
