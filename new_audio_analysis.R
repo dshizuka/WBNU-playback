@@ -44,7 +44,7 @@ behavior.data
 
 #merge the behavior and audio data
 global.data=left_join(behavior.data, audio.dat, by=c("Audio.code"="filename"))
-
+global.data=global.data %>% mutate(season=year(mdy(DATE))-2020) %>% mutate(tot.notes=sum(double,quank,wurp,rapid,squeak))
 global.data
 
 #write.csv(global.data, "global.data_230209.csv")
@@ -106,3 +106,10 @@ summary(fit_notes)
 TukeyHSD(fit_notes)
 
 plot(global.data$HD, global.data$tot.notes, xlim=c(0,20), col=factor(global.data$Treatment))
+
+
+fit_HD=aov(HD~Treatment+season, data=global.data)
+summary(fit_HD)
+
+fit_HD=aov(HD~Treatment+season, data=global.data)
+summary(fit_HD)
