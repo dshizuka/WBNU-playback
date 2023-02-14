@@ -123,7 +123,7 @@ p
 
 fit_quanks=aov(tot.quanks~Treatment+factor(season), data=global.data )
 summary(fit_quanks)
-TukeyHSD(fit_notes)
+TukeyHSD(fit_quanks)
 
 fit_quanks_s1=aov(tot.quanks~Treatment, data=global.data %>% filter(season==1))
 summary(fit_quanks_s1)
@@ -134,7 +134,9 @@ fit_quanks_s2=aov(tot.quanks~Treatment, data=global.data %>% filter(season==2))
 summary(fit_quanks_s2)
 TukeyHSD(fit_quanks_s2)
 
-
+fit_quanks=aov(tot.quanks~Treatment, data=global.data )
+summary(fit_quanks)
+TukeyHSD(fit_quanks)
 #looking at number of quanks produced by treatment and season
 p=ggplot(data=global.data, aes(x=Treatment, y=double)) +
   geom_boxplot() +
