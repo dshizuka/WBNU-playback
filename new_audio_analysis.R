@@ -52,10 +52,10 @@ behavior.data
 
 #merge the behavior and audio data
 global.data=left_join(behavior.data, audio.dat, by=c("Audio.code"="filename"))
-global.data=global.data %>% mutate(season=year(mdy(DATE))-2020) %>% mutate(tot.notes=rowSums(.[14:18]))
+global.data=global.data %>% mutate(season=year(mdy(DATE))-2020) %>% mutate(tot.notes=rowSums(.[14:18])) %>% mutate(tot.quanks=rowSums(.[c(14, 15,17)]))
 global.data
 
-#write.csv(global.data, "global.data_230214.csv")
+write.csv(global.data, "global.data_230214.csv")
 
 names(global.data)
 global.data$Treatment
