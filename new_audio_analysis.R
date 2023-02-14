@@ -17,7 +17,7 @@ dat.list=lapply(list.files("Data/audio data_new", full.names=T), function(x) rea
 no.bouts=sapply(dat.list, function(x) nrow(x)-1)
 
 #extract metadata from file names
-filenames=list.files("Data/audio data_DS")
+filenames=list.files("Data/audio data_new")
 filename_short=str_sub(filenames, start=1, end=9)
 
 #note types that exist
@@ -43,6 +43,7 @@ table(dat.comb$Call)
 #gather all the data into a clean dataset
 audio.dat=dat.comb %>% group_by(filename, Call) %>% summarise(n=sum(Note.Number)) %>% pivot_wider(id_cols=filename,names_from=Call, values_from=n) %>% replace_na(list(double=0, quank=0, wurp=0, rapid=0, squeak=0)) %>% select(-Playback) %>% mutate(double=double/2)
 
+audio.dat
 
 
 #now import behavior data and then combine it with the audio data
