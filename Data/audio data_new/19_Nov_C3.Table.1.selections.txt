@@ -7,4 +7,4 @@ Selection	View	Channel	Begin Time (s)	End Time (s)	Low Freq (Hz)	High Freq (Hz)	
 6	Spectrogram 1	1	92.666663647	93.363624243	832.400	4254.300	squeak	3
 7	Spectrogram 1	1	95.927998775	96.513038691	832.400	4948.000	squeak	2
 8	Spectrogram 1	1	132.712280700	132.839463291	786.100	4069.400	squeak	1
-9	Spectrogram 1	1	182.453914627	182.601446432	601.200	3653.200	squeak	
+9	Spectrogram 1	1	182.453914627	182.601446432	601.200	3653.200	squeak	1
