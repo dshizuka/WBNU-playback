@@ -11,7 +11,7 @@ list.files("Data/audio data_new", full.names=T)
 
 
 #now import all the february selection tables using lapply()
-dat.list=lapply(list.files("Data/audio data_DS", full.names=T), function(x) read.table(x, sep="\t", header=T, na.strings=c("NA")))
+dat.list=lapply(list.files("Data/audio data_new", full.names=T), function(x) read.table(x, sep="\t", header=T, na.strings=c("NA")))
 
 #calculate number of selections
 no.bouts=sapply(dat.list, function(x) nrow(x)-1)
@@ -33,7 +33,14 @@ for(i in 1:length(dat.list)){
 }
 
 dat.comb=bind_rows(dat.list)
+dat.comb$Call=gsub("Quank", "quank", dat.comb$Call) #replace capitalization
+dat.comb$Call=gsub("Double", "double", dat.comb$Call)
+dat.comb$Call=gsub("Squeak", "squeak", dat.comb$Call)
+dat.comb$Call=gsub("quank ", "quank", dat.comb$Call)
+dat.comb$Call=gsub("double ", "double", dat.comb$Call)
+table(dat.comb$Call)
 
+#gather all the data into a clean dataset
 audio.dat=dat.comb %>% group_by(filename, Call) %>% summarise(n=sum(Note.Number)) %>% pivot_wider(id_cols=filename,names_from=Call, values_from=n) %>% replace_na(list(double=0, quank=0, wurp=0, rapid=0, squeak=0)) %>% select(-Playback) %>% mutate(double=double/2)
 
 
