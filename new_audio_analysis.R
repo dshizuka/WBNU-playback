@@ -52,7 +52,7 @@ behavior.data
 
 #merge the behavior and audio data
 global.data=left_join(behavior.data, audio.dat, by=c("Audio.code"="filename"))
-global.data=global.data %>% mutate(season=year(mdy(DATE))-2020) %>% mutate(tot.notes=rowSums(.[14:18])) %>% mutate(tot.quanks=rowSums(.[c(14, 15,17)]))
+global.data=global.data %>% mutate(season=(month(mdy(DATE))>5)+1) %>% mutate(tot.notes=rowSums(.[14:18])) %>% mutate(tot.quanks=rowSums(.[c(14, 15,17)]))
 global.data
 
 write.csv(global.data, "global.data_230214.csv")
@@ -103,21 +103,46 @@ TukeyHSD(fit_boutlength)
 #Boxplot for HD, base R way:
 boxplot(HD~Treatment, data=global.data)
 
-#Boxplot for HD, ggplot way:
-p=ggplot(data=global.data, aes(x=Treatment, y=tot.notes)) +
+#Boxplot for HD, looking at seasonal difference
+p=ggplot(data=global.data, aes(x=Treatment, y=HD)) +
   geom_boxplot() +
+  facet_wrap(~season) +
   theme_classic() 
 p
 
-fit_notes=aov(tot.notes~Treatment, data=global.data)
-summary(fit_notes)
+fit_HD=aov(HD~Treatment+factor(season), data=global.data)
+summary(fit_HD)
+TukeyHSD(fit_HD)
+
+#looking at number of quanks produced by treatment and season
+p=ggplot(data=global.data, aes(x=Treatment, y=tot.quanks)) +
+  geom_boxplot() +
+  facet_wrap(~season) +
+  theme_classic() 
+p
+
+fit_quanks=aov(tot.quanks~Treatment+factor(season), data=global.data )
+summary(fit_quanks)
 TukeyHSD(fit_notes)
 
-plot(global.data$HD, global.data$tot.notes, xlim=c(0,20), col=factor(global.data$Treatment))
+fit_quanks_s1=aov(tot.quanks~Treatment, data=global.data %>% filter(season==1))
+summary(fit_quanks_s1)
+TukeyHSD(fit_quanks_s1)
 
 
-fit_HD=aov(HD~Treatment+season, data=global.data)
-summary(fit_HD)
+fit_quanks_s2=aov(tot.quanks~Treatment, data=global.data %>% filter(season==2))
+summary(fit_quanks_s2)
+TukeyHSD(fit_quanks_s2)
 
-fit_HD=aov(HD~Treatment+season, data=global.data)
-summary(fit_HD)
+
+#looking at number of quanks produced by treatment and season
+p=ggplot(data=global.data, aes(x=Treatment, y=double)) +
+  geom_boxplot() +
+  facet_wrap(~season) +
+  theme_classic() 
+p
+
+
+#is there a relationship between approaching and vocalizing
+
+plot(tot.quanks~HD, data=global.data, xlim=c(0,20), col=season, pch=19)
