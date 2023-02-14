@@ -1,2 +1,2 @@
-Selection	View	Channel	Begin Time (s)	End Time (s)	Low Freq (Hz)	High Freq (Hz)	CALL	Note number
+Selection	View	Channel	Begin Time (s)	End Time (s)	Low Freq (Hz)	High Freq (Hz)	Call	Note number
 1	Spectrogram 1	1	20.745495672	51.035605335	178.7	3931.9	Playback
