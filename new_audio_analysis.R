@@ -11,7 +11,7 @@ list.files("Data/audio data_new", full.names=T)
 
 
 #now import all the february selection tables using lapply()
-dat.list=lapply(list.files("Data/audio data_DS", full.names=T), function(x) read.table(x, sep="\t", header=T, na.strings=c("NA")))
+dat.list=lapply(list.files("Data/audio data_new", full.names=T), function(x) read.table(x, sep="\t", header=T, na.strings=c("NA")))
 
 #calculate number of selections
 no.bouts=sapply(dat.list, function(x) nrow(x)-1)
