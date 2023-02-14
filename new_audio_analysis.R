@@ -7,7 +7,7 @@ library(tidyverse)
 
 #file organization
 #path names to february selection tables
-list.files("Data/audio data_DS", full.names=T)
+list.files("Data/audio data_new", full.names=T)
 
 
 #now import all the february selection tables using lapply()
