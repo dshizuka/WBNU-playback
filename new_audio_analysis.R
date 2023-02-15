@@ -7,7 +7,7 @@ library(tidyverse)
 
 #file organization
 #path names to february selection tables
-list.files("Data/audio data_new", full.names=T)
+list.files("Data/audio data_new", full.names=T)[29]
 
 
 #now import all the february selection tables using lapply()
@@ -15,6 +15,16 @@ dat.list=lapply(list.files("Data/audio data_new", full.names=T), function(x) rea
 
 #calculate number of selections
 no.bouts=sapply(dat.list, function(x) nrow(x)-1)
+
+#for each sound, calculate note rate
+
+for(j in 1:length(dat.list)){
+  names(dat.list[[j]])=c("Selection", "View", "Channel", "Begin.Time", "End.Time", "Low.Freq", "High.Freq", "Call", "Note.Number")
+}
+
+lapply(dat.list, function(x) {
+  x$rate=x$Note.Number/(x$End.Time-x$Begin.Time)})
+
 
 #extract metadata from file names
 filenames=list.files("Data/audio data_new")
