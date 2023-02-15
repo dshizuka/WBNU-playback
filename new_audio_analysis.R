@@ -22,8 +22,10 @@ for(j in 1:length(dat.list)){
   names(dat.list[[j]])=c("Selection", "View", "Channel", "Begin.Time", "End.Time", "Low.Freq", "High.Freq", "Call", "Note.Number")
 }
 
-lapply(dat.list, function(x) {
-  x$rate=x$Note.Number/(x$End.Time-x$Begin.Time)})
+dat.list=lapply(dat.list, function(x) {
+  x$Note.Number[which(x$Call=="double"|x$Call=="Double")]=x$Note.Number[which(x$Call=="double"|x$Call=="Double")]/2
+  x$rate=x$Note.Number/(x$End.Time-x$Begin.Time)
+  x})
 
 
 #extract metadata from file names
@@ -33,26 +35,23 @@ filename_short=str_sub(filenames, start=1, end=9)
 #note types that exist
 notetypes=c("quank", "double", "rapid", "wurp", "squeak")
 
-#calculate mean bout length for all data after removing the first line
-mean.bout=sapply(dat.list, function(x) mean(x$End.Time..s.[-1]-x$Begin.Time..s.[-1]))
-sum.dat=list()
-tot.notes=vector(length=length(dat.list))
-
 for(i in 1:length(dat.list)){
   dat.list[[i]]$filename=filename_short[i]
 }
 
 dat.comb=bind_rows(dat.list)
-dat.comb$Call=gsub("Quank", "quank", dat.comb$Call) #replace capitalization
-dat.comb$Call=gsub("Double", "double", dat.comb$Call)
-dat.comb$Call=gsub("Squeak", "squeak", dat.comb$Call)
-dat.comb$Call=gsub("quank ", "quank", dat.comb$Call)
-dat.comb$Call=gsub("double ", "double", dat.comb$Call)
+
+dat.comb=dat.comb %>% mutate(Call=str_replace_all(Call, c("Quank"="quank", "Double"="double", "Squeak"="squeak", "quank "="quank", "double "="double")))
+
 table(dat.comb$Call)
 
 #gather all the data into a clean dataset
-audio.dat=dat.comb %>% group_by(filename, Call) %>% summarise(n=sum(Note.Number)) %>% pivot_wider(id_cols=filename,names_from=Call, values_from=n) %>% replace_na(list(double=0, quank=0, wurp=0, rapid=0, squeak=0)) %>% select(-Playback) %>% mutate(double=double/2)
+audio.dat=dat.comb %>% group_by(filename, Call) %>% summarise(n=sum(Note.Number), avg.rate=mean(rate)) %>% pivot_wider(id_cols=filename,names_from=Call, values_from=c(n, avg.rate)) %>% replace_na(list(n_double=0, n_quank=0, n_wurp=0, n_rapid=0, n_squeak=0)) %>% select(c(-n_Playback, -avg.rate_Playback))
+audio.dat
 
+quankrate.dat=dat.comb%>% mutate(str_replace_all(Call, c("rapid"="quank", "double"="quank"))) %>% filter(Call=="quank") %>% group_by(filename) %>% summarise(avg.quankrate=mean(rate))
+
+audio.dat = audio.dat %>% left_join(., quankrate.dat)
 audio.dat
 
 
@@ -65,7 +64,7 @@ global.data=left_join(behavior.data, audio.dat, by=c("Audio.code"="filename"))
 global.data=global.data %>% mutate(season=(month(mdy(DATE))>5)+1) %>% mutate(tot.notes=rowSums(.[14:18])) %>% mutate(tot.quanks=rowSums(.[c(14, 15,17)]))
 global.data
 
-write.csv(global.data, "global.data_230214.csv")
+write.csv(global.data, "global.data_230215.csv")
 
 names(global.data)
 global.data$Treatment
@@ -158,3 +157,5 @@ p
 #is there a relationship between approaching and vocalizing
 
 plot(tot.quanks~HD, data=global.data, xlim=c(0,20), col=season, pch=19)
+
+
