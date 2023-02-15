@@ -54,6 +54,7 @@ behavior.data
 
 #merge the behavior and audio data
 global.data=left_join(behavior.data, audio.data, by=c("Audio.code"="filename"))
+global.data=global.data %>% mutate(season=(month(mdy(DATE))>5)+1)
 
 global.data
 #write.csv(dat,"feb_data.csv")
@@ -80,18 +81,21 @@ DIAH_1
 
 
 #ANOVA for HD
-fit_HD=aov(HD~Treatment, data=global.data)
-fit_VD=aov(VD~Treatment, data=global.data)
-fit_bout=aov(no.bouts~Treatment, data=global.data)
+fit_HD=aov(HD~Treatment+factor(season), data=global.data)
+fit_VD=aov(VD~Treatment+factor(season), data=global.data)
+fit_bout=aov(no.bouts~Treatment+factor(season), data=global.data)
 fit_DICDV=aov(DICDV_1~Treatment, data=global.data)
 fit_DIAH=aov(DIAH_1~Treatment, data=global.data)
-fit_boutlength=aov(mean.bout.length~Treatment, data=global.data)
+fit_boutlength=aov(mean.bout.length~Treatment+factor(season), data=global.data)
 summary(fit_HD)
 summary(fit_VD)
 summary(fit_bout)
 summary(fit_DICDV)
 summary(fit_DIAH)
 summary(fit_boutlength)
+
+fit_bout=aov(no.bouts~Treatment+factor(season), data=global.data)
+summary(fit_bout)
 
 #Post-hoc comparisons (Tukey Honest Significant Differences test)
 TukeyHSD(fit_HD)

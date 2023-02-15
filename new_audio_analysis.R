@@ -72,6 +72,7 @@ global.data$HD
 global.data$VD
 global.data$no.bouts
 
+
 #changing vertical Y/N data into numeric to look at significance
 DICDV_1=global.data$DICDV
 DICDV_1[DICDV_1=="Y"]=1
@@ -123,6 +124,10 @@ fit_HD=aov(HD~Treatment+factor(season), data=global.data)
 summary(fit_HD)
 TukeyHSD(fit_HD)
 
+fit_bout=aov(no.bouts~Treatment+factor(season), data=global.data)
+
+TukeyHSD(fit_HD)
+
 #looking at number of quanks produced by treatment and season
 p=ggplot(data=global.data, aes(x=Treatment, y=tot.quanks)) +
   geom_boxplot() +
@@ -139,6 +144,7 @@ summary(fit_quanks_s1)
 TukeyHSD(fit_quanks_s1)
 
 
+
 fit_quanks_s2=aov(tot.quanks~Treatment, data=global.data %>% filter(season==2))
 summary(fit_quanks_s2)
 TukeyHSD(fit_quanks_s2)
@@ -146,6 +152,17 @@ TukeyHSD(fit_quanks_s2)
 fit_quanks=aov(tot.quanks~Treatment, data=global.data )
 summary(fit_quanks)
 TukeyHSD(fit_quanks)
+
+fit_quankrate_season=aov(avg.quankrate~Treatment+factor(season), data=global.data)
+summary(fit_quankrate_season)
+
+fit_quankrate_seas=aov(mean.bout.length~Treatment+factor(season), data=global.data)
+summary(fit_quankrate_seas)
+
+fit_quankrate=aov(avg.quankrate~Treatment, data=global.data)
+summary(fit_quankrate)
+TukeyHSD(fit_quankrate)
+
 #looking at number of quanks produced by treatment and season
 p=ggplot(data=global.data, aes(x=Treatment, y=double)) +
   geom_boxplot() +
