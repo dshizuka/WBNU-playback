@@ -7,14 +7,18 @@ library(tidyverse)
 
 #file organization
 #path names to february selection tables
-list.files("Data/playback selection tables", full.names=T)[29]
+list.files("Data/playback selection tables", full.names=T)
 
 
 #now import all the february selection tables using lapply()
-dat.list=lapply(list.files("Data/audio data_new", full.names=T), function(x) read.table(x, sep="\t", header=T, na.strings=c("NA")))
+dat.list=lapply(list.files("Data/playback selection tables", full.names=T), function(x) read.table(x, sep="\t", header=T, na.strings=c("NA")))
+
+dat.list
 
 #calculate number of selections
 no.bouts=sapply(dat.list, function(x) nrow(x)-1)
+
+no.bouts
 
 #for each sound, calculate note rate
 
@@ -27,16 +31,16 @@ dat.list=lapply(dat.list, function(x) {
   x$rate=x$Note.Number/(x$End.Time-x$Begin.Time)
   x})
 
-
+dat.list
 #extract metadata from file names
-filenames=list.files("Data/audio data_new")
-filename_short=str_sub(filenames, start=1, end=9)
+filenames=list.files("Data/playback selection tables")
+#filename_short=str_sub(filenames, start=1, end=9)
 
 #note types that exist
 notetypes=c("quank", "double", "rapid", "wurp", "squeak")
 
 for(i in 1:length(dat.list)){
-  dat.list[[i]]$filename=filename_short[i]
+  dat.list[[i]]$filename=filenames[i]
 }
 
 dat.comb=bind_rows(dat.list)
@@ -56,8 +60,8 @@ audio.dat
 
 
 #now import behavior data and then combine it with the audio data
-behavior.data=read.csv("Data/Thesis behavior data combined.csv", na.strings="N/A")
-behavior.data
+#behavior.data=read.csv("Data/Thesis behavior data combined.csv", na.strings="N/A")
+#behavior.data
 
 #merge the behavior and audio data
 global.data=left_join(behavior.data, audio.dat, by=c("Audio.code"="filename"))
