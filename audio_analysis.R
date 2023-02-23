@@ -133,7 +133,7 @@ ggplot(data=global.data, aes(x= Treatment, y=HD, fill=Treatment)) +
 
 HDplot=ggplot(data=global.data, aes(x= Treatment, y=HD, fill=Treatment)) +
   geom_boxplot() +
-  scale_fill_brewer(palette="RdYlBu") +
+  scale_fill_manual(values=c("yellow", "red", "orange")) +
   ylab("Horizontal Approach Distance (m)")
 
 HDplot
@@ -143,4 +143,15 @@ HDplot + scale_x_discrete(name ="Treatment",
 
 
 boxplot(mean.bout.length~Treatment, data=global.data)
+
+VDplot=ggplot(data=global.data, aes(x= Treatment, y=VD, fill=Treatment)) +
+  geom_boxplot() +
+  scale_fill_manual(values=c("yellow", "red", "orange")) +
+  ylab("Vertical Approach Distance (m)")
+
+VDplot
+
+VDplot + scale_x_discrete(name ="Treatment", 
+                          limits=c("Control","Low","High"))
+
 
