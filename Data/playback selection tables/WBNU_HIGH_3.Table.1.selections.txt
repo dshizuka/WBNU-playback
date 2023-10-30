@@ -1,0 +1,9 @@
+Selection	View	Channel	Begin Time (s)	End Time (s)	Low Freq (Hz)	High Freq (Hz)	Call	Note Number
+1	Spectrogram 1	1	10.273941999	10.988953732	742.4	3340.9	rapid	7
+2	Spectrogram 1	1	12.279738282	15.108697746	705.3	4157.6	rapid	20
+3	Spectrogram 1	1	16.337658227	16.843939827	853.8	4268.9	rapid	5
+4	Spectrogram 1	1	18.256549987	18.829447587	742.4	4380.3	rapid	6
+5	Spectrogram 1	1	20.771503086	24.590820417	631.1	4306.1	rapid	26
+6	Spectrogram 1	1	27.652375640	28.949167106	853.8	3934.8	rapid	13
+7	Spectrogram 1	1	32.136989043	33.495955442	668.2	4157.6	rapid	8
+8	Spectrogram 1	1	35.724156019	39.565678683	593.9	3600.8	rapid	26
