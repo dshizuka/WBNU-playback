@@ -13,20 +13,20 @@ library(tidyverse)
 #now import all the february selection tables using lapply()
 dat.list=lapply(list.files("Data/2024 audio data", full.names=T), function(x) read.table(x, sep="\t", header=T, na.strings=c("NA")))
 
+#dat.list
 #calculate number of selections
 no.bouts=sapply(dat.list, function(x) nrow(x)-1)
 
 #for each sound, calculate note rate
 
 for(j in 1:length(dat.list)){
-  names(dat.list[[j]])=c("Selection", "View", "Channel", "Begin.Time", "End.Time", "Low.Freq", "High.Freq", "call", "note.number")
+  names(dat.list[[j]])=c("Selection", "View", "Channel", "Begin.Time..s.", "End.Time..s.", "Low.Freq..Hz.", "High.Freq..Hz.", "call", "note.number")
 }
 
 dat.list=lapply(dat.list, function(x) {
   x$note.number[which(x$call=="double"|x$call=="Double")]=x$note.number[which(x$call=="double"|x$call=="Double")]/2
-  x$rate=x$note.number/(x$End.Time-x$Begin.Time)
+  x$rate=x$note.number/(x$End.Time..s.-x$End.Time..s.)
   x})
-
 
 #extract metadata from file names
 filenames=list.files("Data/2024 audio data")
@@ -38,6 +38,7 @@ notetypes=c("quank", "double", "rapid", "wurp", "squeak")
 for(i in 1:length(dat.list)){
   dat.list[[i]]$filename=filename_short[i]
 }
+
 
 dat.comb=bind_rows(dat.list)
 
