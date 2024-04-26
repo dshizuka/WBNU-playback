@@ -7,7 +7,7 @@ library(tidyverse)
 
 #file organization
 #path names to february selection tables
-list.files("Data/2024 audio data", full.names=T)
+#list.files("Data/2024 audio data", full.names=T)
 
 
 #now import all the february selection tables using lapply()
@@ -19,12 +19,12 @@ no.bouts=sapply(dat.list, function(x) nrow(x)-1)
 #for each sound, calculate note rate
 
 for(j in 1:length(dat.list)){
-  names(dat.list[[j]])=c("Selection", "View", "Channel", "Begin.Time", "End.Time", "Low.Freq", "High.Freq", "Call", "Note.Number")
+  names(dat.list[[j]])=c("Selection", "View", "Channel", "Begin.Time", "End.Time", "Low.Freq", "High.Freq", "call", "note.number")
 }
 
 dat.list=lapply(dat.list, function(x) {
-  x$Note.Number[which(x$Call=="double"|x$Call=="Double")]=x$Note.Number[which(x$Call=="double"|x$Call=="Double")]/2
-  x$rate=x$Note.Number/(x$End.Time-x$Begin.Time)
+  x$note.number[which(x$call=="double"|x$call=="Double")]=x$note.number[which(x$call=="double"|x$call=="Double")]/2
+  x$rate=x$note.number/(x$End.Time-x$Begin.Time)
   x})
 
 
@@ -41,15 +41,15 @@ for(i in 1:length(dat.list)){
 
 dat.comb=bind_rows(dat.list)
 
-dat.comb=dat.comb %>% mutate(Call=str_replace_all(Call, c("Quank"="quank", "Double"="double", "Squeak"="squeak", "quank "="quank", "double "="double")))
+dat.comb=dat.comb %>% mutate(call=str_replace_all(call, c("Quank"="quank", "Double"="double", "Squeak"="squeak", "quank "="quank", "double "="double")))
 
-table(dat.comb$Call)
+table(dat.comb$call)
 
 #gather all the data into a clean dataset
-audio.dat=dat.comb %>% group_by(filename, Call) %>% summarise(n=sum(Note.Number), avg.rate=mean(rate)) %>% pivot_wider(id_cols=filename,names_from=Call, values_from=c(n, avg.rate)) %>% replace_na(list(n_double=0, n_quank=0, n_wurp=0, n_rapid=0, n_squeak=0)) %>% select(c(-n_Playback, -avg.rate_Playback))
+audio.dat=dat.comb %>% group_by(filename, call) %>% summarise(n=sum(note.number), avg.rate=mean(rate)) %>% pivot_wider(id_cols=filename,names_from=call, values_from=c(n, avg.rate)) %>% replace_na(list(n_double=0, n_quank=0, n_wurp=0, n_rapid=0, n_squeak=0)) %>% select(c(-n_Playback, -avg.rate_Playback))
 audio.dat
 
-quankrate.dat=dat.comb%>% mutate(str_replace_all(Call, c("rapid"="quank", "double"="quank"))) %>% filter(Call=="quank") %>% group_by(filename) %>% summarise(avg.quankrate=mean(rate))
+quankrate.dat=dat.comb%>% mutate(str_replace_all(call, c("rapid"="quank", "double"="quank"))) %>% filter(call=="quank") %>% group_by(filename) %>% summarise(avg.quankrate=mean(rate))
 
 audio.dat = audio.dat %>% left_join(., quankrate.dat)
 audio.dat
