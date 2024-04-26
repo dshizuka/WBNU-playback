@@ -7,11 +7,11 @@ library(tidyverse)
 
 #file organization
 #path names to february selection tables
-list.files("Data/audio data_new", full.names=T)[29]
+list.files("Data/2024 audio data", full.names=T)
 
 
 #now import all the february selection tables using lapply()
-dat.list=lapply(list.files("Data/audio data_new", full.names=T), function(x) read.table(x, sep="\t", header=T, na.strings=c("NA")))
+dat.list=lapply(list.files("Data/2024 audio data", full.names=T), function(x) read.table(x, sep="\t", header=T, na.strings=c("NA")))
 
 #calculate number of selections
 no.bouts=sapply(dat.list, function(x) nrow(x)-1)
@@ -29,8 +29,8 @@ dat.list=lapply(dat.list, function(x) {
 
 
 #extract metadata from file names
-filenames=list.files("Data/audio data_new")
-filename_short=str_sub(filenames, start=1, end=9)
+filenames=list.files("Data/2024 audio data")
+filename_short=str_sub(filenames, start=1, end=16)
 
 #note types that exist
 notetypes=c("quank", "double", "rapid", "wurp", "squeak")
@@ -55,16 +55,17 @@ audio.dat = audio.dat %>% left_join(., quankrate.dat)
 audio.dat
 
 
+
 #now import behavior data and then combine it with the audio data
-behavior.data=read.csv("Data/Thesis behavior data combined.csv", na.strings="N/A")
+behavior.data=read.csv("Data/2024 behavior data combined.csv", na.strings="N/A")
 behavior.data
 
 #merge the behavior and audio data
-global.data=left_join(behavior.data, audio.dat, by=c("Audio.code"="filename"))
+global.data=left_join(behavior.data, audio.dat, by=c("Recording"="filename"))
 global.data=global.data %>% mutate(season=(month(mdy(DATE))>5)+1) %>% mutate(tot.notes=rowSums(.[14:18])) %>% mutate(tot.quanks=rowSums(.[c(14, 15,17)]))
 global.data
 
-write.csv(global.data, "global.data_230215.csv")
+write.csv(global.data, "global.data_240426.csv")
 
 names(global.data)
 global.data$Treatment
@@ -118,7 +119,7 @@ p=ggplot(data=global.data, aes(x=Treatment, y=HD)) +
   geom_boxplot() +
   facet_wrap(~season) +
   theme_classic() 
-p
+#p
 
 fit_HD=aov(HD~Treatment+factor(season), data=global.data)
 summary(fit_HD)
@@ -133,7 +134,7 @@ p=ggplot(data=global.data, aes(x=Treatment, y=tot.quanks)) +
   geom_boxplot() +
   facet_wrap(~season) +
   theme_classic() 
-p
+#p
 
 fit_quanks=aov(tot.quanks~Treatment+factor(season), data=global.data )
 summary(fit_quanks)
@@ -168,7 +169,7 @@ p=ggplot(data=global.data, aes(x=Treatment, y=double)) +
   geom_boxplot() +
   facet_wrap(~season) +
   theme_classic() 
-p
+#p
 
 
 #is there a relationship between approaching and vocalizing

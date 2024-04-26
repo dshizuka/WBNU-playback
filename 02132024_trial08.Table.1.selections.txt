@@ -1,0 +1,8 @@
+Selection	View	Channel	Begin Time (s)	End Time (s)	Low Freq (Hz)	High Freq (Hz)	call	note number
+1	Spectrogram 1	1	36.127875236	36.414406962	509.7	2897.1	rapid	3
+2	Spectrogram 1	1	39.394917192	40.335606255	268.2	3567.7	rapid	10
+3	Spectrogram 1	1	62.024473176	62.938130944	268.2	3675.0	squeak	3
+4	Spectrogram 1	1	86.288646910	86.358928277	429.2	5847.8	squeak	1
+5	Spectrogram 1	1	149.746154983	151.854595985	429.2	4023.7	wurp	13
+6	Spectrogram 1	1	168.337124978	170.478003534	509.7	4238.3	wurp	13
+7	Spectrogram 1	1	179.524024938	181.427028099	429.2	3514.1	wurp	12
