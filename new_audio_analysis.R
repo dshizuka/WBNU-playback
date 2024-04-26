@@ -25,7 +25,7 @@ for(j in 1:length(dat.list)){
 
 dat.list=lapply(dat.list, function(x) {
   x$note.number[which(x$call=="double"|x$call=="Double")]=x$note.number[which(x$call=="double"|x$call=="Double")]/2
-  x$rate=x$note.number/(x$End.Time..s.-x$End.Time..s.)
+  x$rate=x$note.number/(x$End.Time..s.-x$Begin.Time..s.)
   x})
 
 #extract metadata from file names
@@ -36,18 +36,23 @@ filename_short=str_sub(filenames, start=1, end=16)
 notetypes=c("quank", "double", "rapid", "wurp", "squeak")
 
 for(i in 1:length(dat.list)){
-  dat.list[[i]]$filename=filename_short[i]
+  if(nrow(dat.list[[i]])==0) next else dat.list[[i]]$filename=filename_short[i]
 }
 
+#this snip of code will tell us which dataset in the list is empty
+which(sapply(dat.list, nrow)==0)
 
-dat.comb=bind_rows(dat.list)
+#now we can tell the bind_rows() function to ignore the dataset that is empty when combining
+dat.comb=bind_rows(dat.list[-which(sapply(dat.list, nrow)==0)
+])
 
 dat.comb=dat.comb %>% mutate(call=str_replace_all(call, c("Quank"="quank", "Double"="double", "Squeak"="squeak", "quank "="quank", "double "="double")))
 
 table(dat.comb$call)
 
 #gather all the data into a clean dataset
-audio.dat=dat.comb %>% group_by(filename, call) %>% summarise(n=sum(note.number), avg.rate=mean(rate)) %>% pivot_wider(id_cols=filename,names_from=call, values_from=c(n, avg.rate)) %>% replace_na(list(n_double=0, n_quank=0, n_wurp=0, n_rapid=0, n_squeak=0)) %>% select(c(-n_Playback, -avg.rate_Playback))
+audio.dat=dat.comb %>% group_by(filename, call) %>% summarise(n=sum(note.number), avg.rate=mean(rate)) %>% pivot_wider(id_cols=filename,names_from=call, values_from=c(n, avg.rate)) %>% replace_na(list(n_double=0, n_quank=0, n_wurp=0, n_rapid=0, n_squeak=0)) 
+
 audio.dat
 
 quankrate.dat=dat.comb%>% mutate(str_replace_all(call, c("rapid"="quank", "double"="quank"))) %>% filter(call=="quank") %>% group_by(filename) %>% summarise(avg.quankrate=mean(rate))
