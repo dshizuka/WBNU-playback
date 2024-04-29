@@ -14,8 +14,10 @@ library(tidyverse)
 dat.list=lapply(list.files("Data/2024 audio data", full.names=T), function(x) read.table(x, sep="\t", header=T, na.strings=c("NA")))
 
 #dat.list
+
 #calculate number of selections
 no.bouts=sapply(dat.list, function(x) nrow(x)-1)
+no.bouts
 
 #for each sound, calculate note rate
 
@@ -42,20 +44,26 @@ for(i in 1:length(dat.list)){
 #this snip of code will tell us which dataset in the list is empty
 which(sapply(dat.list, nrow)==0)
 
+
+
+#if no.bouts=== -1 
+
+
 #now we can tell the bind_rows() function to ignore the dataset that is empty when combining
 dat.comb=bind_rows(dat.list[-which(sapply(dat.list, nrow)==0)
 ])
+
 
 dat.comb=dat.comb %>% mutate(call=str_replace_all(call, c("Quank"="quank", "Double"="double", "Squeak"="squeak", "quank "="quank", "double "="double")))
 
 table(dat.comb$call)
 
 #gather all the data into a clean dataset
-audio.dat=dat.comb %>% group_by(filename, call) %>% summarise(n=sum(note.number), avg.rate=mean(rate)) %>% pivot_wider(id_cols=filename,names_from=call, values_from=c(n, avg.rate)) %>% replace_na(list(n_double=0, n_quank=0, n_wurp=0, n_rapid=0, n_squeak=0)) 
+audio.dat=dat.comb %>% group_by(filename, call) %>% summarise(n=sum(note.number), avg.rate=mean(rate)) %>% pivot_wider(id_cols=filename,names_from=call, values_from=c(n, avg.rate)) %>% replace_na(list(n_double=0, n_quank=0, n_wurp=0, n_rapid=0, n_squeak=0))
 
 audio.dat
 
-quankrate.dat=dat.comb%>% mutate(str_replace_all(call, c("rapid"="quank", "double"="quank"))) %>% filter(call=="quank") %>% group_by(filename) %>% summarise(avg.quankrate=mean(rate))
+quankrate.dat=dat.comb%>% mutate(str_replace_all(call, c("rapid"="quank", "double"="quank"))) %>% filter(call=="quank") %>% group_by(filename) %>% summarise(avg.quankrate=mean(rate)) 
 
 audio.dat = audio.dat %>% left_join(., quankrate.dat)
 audio.dat
@@ -66,18 +74,23 @@ audio.dat
 behavior.data=read.csv("Data/2024 behavior data combined.csv", na.strings="N/A")
 behavior.data
 
+
+
 #merge the behavior and audio data
 global.data=left_join(behavior.data, audio.dat, by=c("Recording"="filename"))
-global.data=global.data %>% mutate(season=(month(mdy(DATE))>5)+1) %>% mutate(tot.notes=rowSums(.[14:18])) %>% mutate(tot.quanks=rowSums(.[c(14, 15,17)]))
+global.data=global.data %>% mutate(tot.notes=rowSums(.[16:20])) %>% mutate(tot.quanks=rowSums(.[c(16, 17, 18)]))
+
 global.data
 
 write.csv(global.data, "global.data_240426.csv")
+
+
 
 names(global.data)
 global.data$Treatment
 global.data$HD
 global.data$VD
-global.data$no.bouts
+#global.data$no.bouts
 
 
 #changing vertical Y/N data into numeric to look at significance
@@ -92,22 +105,22 @@ DIAH_1[DIAH_1=="Y"]=1
 DIAH_1[DIAH_1=="N"]=0
 DIAH_1=as.numeric(DIAH_1)
 DIAH_1
-#sum(DDIAH~global.data$Treatment)
+sum(DIAH~global.data$Treatment)
 
 
 #ANOVA for HD
 fit_HD=aov(HD~Treatment, data=global.data)
 fit_VD=aov(VD~Treatment, data=global.data)
-fit_bout=aov(no.bouts~Treatment, data=global.data)
+#fit_bout=aov(no.bouts~Treatment, data=global.data)
 fit_DICDV=aov(DICDV_1~Treatment, data=global.data)
 fit_DIAH=aov(DIAH_1~Treatment, data=global.data)
-fit_boutlength=aov(mean.bout.length~Treatment, data=global.data)
+#fit_boutlength=aov(mean.bout.length~Treatment, data=global.data)
 summary(fit_HD)
 summary(fit_VD)
 summary(fit_bout)
 summary(fit_DICDV)
 summary(fit_DIAH)
-summary(fit_boutlength)
+#summary(fit_boutlength)
 
 #Post-hoc comparisons (Tukey Honest Significant Differences test)
 TukeyHSD(fit_HD)
@@ -124,7 +137,7 @@ boxplot(HD~Treatment, data=global.data)
 p=ggplot(data=global.data, aes(x=Treatment, y=HD)) +
   geom_boxplot() +
   facet_wrap(~season) +
-  theme_classic() 
+  theme_classic()
 #p
 
 fit_HD=aov(HD~Treatment+factor(season), data=global.data)
@@ -140,7 +153,7 @@ p=ggplot(data=global.data, aes(x=Treatment, y=tot.quanks)) +
   geom_boxplot() +
   facet_wrap(~season) +
   theme_classic() 
-#p
+p
 
 fit_quanks=aov(tot.quanks~Treatment+factor(season), data=global.data )
 summary(fit_quanks)

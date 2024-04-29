@@ -1,49 +1,41 @@
-,Recording,DATE,TIME,WP,Treatment,DIAH,DICDV,HD,VD,H app d,V app d,H start,V start,Other
-1,02062024_trial1,2/6/24,10:53,1154,Less 1,N,N,17.58,8.65,0,0,"
-","
-",1155 waypoint for vertical distance later
-2,02062024_trial2,2/6/24,11:18,1156,Less 2,N,N,18.5,3.46,0,0,"
-","
-",Made no quanks during trial
-3,02082024_trial3,2/8/24,8:45,1158,More 3,Y,Y,0,7,16.6,1.8,16.6,8.8,Two nuthatches present. One vigilant the whole observation time and making quank calls. Likely Male.
-4,02082024_trial4,2/8/24,9:22,1159,Control 1,N,N,17.8,1.6,0,0,"
-","
-","I believe after flying the nuthatch started responding to chickadee calls in the background, as it flew closer to chickadees and was looking at them."
-5,,2/8/24,9:43,1160,More 1,N,N,18.2,5.2,0,0,"
-","
-",Observed nuthatch was not responding other than looking at us. Another nuthatch was calling aggressively in the distance and one nuthatch did approach the tree right next to us but not the observed nuthatch. Maybe on the edge of territory?
-6,02122024_trial5,2/12/24,9:35,1161,More 3,Y,N,12.6,4.2,12,0,24.6,6.6,Two nuthatch. One clearly came in horizontally but was not responding for long before going back to foraging. The other only slightly gave a horizontal approach but remained behind the more aggressive approach.
-7,02122024_trial6,2/12/24,10:15,1257,Less 1,N,N,3.2,9.8,0,0,20.4,9.2,Both nuthatches were looking during trial but neither approached. Only flew closer during foraging.
-8,02122024_trial7,2/12/24,11:45,1595,More 1,N,N,17,5.6,0,0,17,5.6,Made an intense vocal response but did not approach. Only one in the pair made a vocal response. Neither made an approach. 
-9,02132024_trial8,2/13/24,10:36,1596,More 3,N,N,20.4,11.2,0,0,20.4,11.2,Male was paying attention during trial but flew away shortly after and female followed him. Recorder stopped working due to a battery issue. Made no vocal response so shouldn’t be an issue.
-10,,2/14/24,10:02,1597,Less 3,N,N,7.6,7,0,0,14.6,7.4,Female was following the male when foraging and male slightly looked but continued foraging during and after the trial
-11,,2/14/24,11:30,1598,Control 3,N,N,19.8,9.2,0,0,19.8,9.2,Male did not respond at all. Briefly looked during playback but remained foraging the whole time and was consistently quanking the whole time both before and after the trial.
-12,02152024_trial9,2/15/24,10:20,1599,Less 2,Y,N,19.8,8.6,5,0,24.8,5.6,Approach distance was different to its closest distance to me.no it wasn’t.  Male made an approach but shortly went to foraging 
-13,02152024_trial10,2/15/24,10:55,1601,More 2,Y,Y,9.4,3,7.6,2.6,17,5.6,Male approached shortly and then went back to foraging tree.
-14,02152024_trial11,2/15/24,11:25,1600,Control 1,N,N,18.2,10.2,0,0,18.2,10.2,Male was looking the whole playback but didn’t move or make much of a vocal response 
-15,02162024_trial12,2/16/24,7:50,1602,Control 3,Y,N,13.6,6.4,4.3,0,17.8,4.8,During approach it went to the female that was foraging. Not sure if responding to us or just following its partner whilst foraging.
-16,02162024_trial13,2/16/24,8:50,1603,Control 1,N,N,14.6,10.2,0,0,14.6,10.2,partner flew back pretty early in the playback. Focal bird did not move from its original position at all.
-17,02162024_trial14,2/19/24,10:38,1604,Less 2,Y,Y,7.52,3.8,4,2.2,16.6,6.6,Both birds made an approach and focal bird flew in closer and then started foraging after flying in closer. The approach distance was different than its closest distance since it made an approach and then went back to foraging on its original tree and then started foraging on closer trees towards us.
-18,02162024_trial15,2/19/24,11:25,1605,More 1,Y,N,15.6,10.6,2,0,17.6,3.4,Both birds in the pair started at relatively the same position. One bird was doing an aggressive vocal response and one was doing wing flicks. Both were behaviorally responding aggressively but not physically responding aggressively. 
-19,02212024_trial16,2/21/24,9:21,1606,Less 2,Y,N,20.2,11.8,3.4,0,23.6,9.4,Male was looking during playback and then went to foraging shortly after
-20,02212024_trial17,2/21/24,9:26,1607,Less 1,N,N,44.8,6.8,0,0,22.4,8.6,Was looking during playback but then retreated.
-21,02212024_trial18,2/21/24,10:23,1608,Control 3,N,N,13.2,8.6,0,0,13.2,8.6,"
+,Recording,DATE,TIME,WP,Treatment,Track,DIAH,DICDV,HD,VD,H app d,V app d,Other
+1,02062024_trial1,2/6/24,10:53,1154,Less,1,N,N,17.58,8.65,0,0,1155 waypoint for vertical distance later
+2,02062024_trial2,2/6/24,11:18,1156,Less,2,N,N,18.5,3.46,0,0,Made no quanks during trial
+3,02082024_trial3,2/8/24,8:45,1158,More,3,Y,Y,0,7,16.6,1.8,Two nuthatches present. One vigilant the whole observation time and making quank calls. Likely Male.
+4,02082024_trial4,2/8/24,9:22,1159,Control,1,N,N,17.8,1.6,0,0,"I believe after flying the nuthatch started responding to chickadee calls in the background, as it flew closer to chickadees and was looking at them."
+5,,2/8/24,9:43,1160,More,1,N,N,18.2,5.2,0,0,Observed nuthatch was not responding other than looking at us. Another nuthatch was calling aggressively in the distance and one nuthatch did approach the tree right next to us but not the observed nuthatch. Maybe on the edge of territory?
+6,02122024_trial5,2/12/24,9:35,1161,More,3,Y,N,12.6,4.2,12,0,Two nuthatch. One clearly came in horizontally but was not responding for long before going back to foraging. The other only slightly gave a horizontal approach but remained behind the more aggressive approach.
+7,02122024_trial6,2/12/24,10:15,1257,Less,1,N,N,3.2,9.8,0,0,Both nuthatches were looking during trial but neither approached. Only flew closer during foraging.
+8,02122024_trial7,2/12/24,11:45,1595,More,1,N,N,17,5.6,0,0,Made an intense vocal response but did not approach. Only one in the pair made a vocal response. Neither made an approach. 
+9,02132024_trial8,2/13/24,10:36,1596,More,3,N,N,20.4,11.2,0,0,Male was paying attention during trial but flew away shortly after and female followed him. Recorder stopped working due to a battery issue. Made no vocal response so shouldn’t be an issue.
+10,,2/14/24,10:02,1597,Less,3,N,N,7.6,7,0,0,Female was following the male when foraging and male slightly looked but continued foraging during and after the trial
+11,,2/14/24,11:30,1598,Control,3,N,N,19.8,9.2,0,0,Male did not respond at all. Briefly looked during playback but remained foraging the whole time and was consistently quanking the whole time both before and after the trial.
+12,02152024_trial9,2/15/24,10:20,1599,Less,2,Y,N,19.8,8.6,5,0,Approach distance was different to its closest distance to me.no it wasn’t.  Male made an approach but shortly went to foraging 
+13,02152024_trial10,2/15/24,10:55,1601,More,2,Y,Y,9.4,3,7.6,2.6,Male approached shortly and then went back to foraging tree.
+14,02152024_trial11,2/15/24,11:25,1600,Control,1,N,N,18.2,10.2,0,0,Male was looking the whole playback but didn’t move or make much of a vocal response 
+15,02162024_trial12,2/16/24,7:50,1602,Control,3,Y,N,13.6,6.4,4.3,0,During approach it went to the female that was foraging. Not sure if responding to us or just following its partner whilst foraging.
+16,02162024_trial13,2/16/24,8:50,1603,Control,1,N,N,14.6,10.2,0,0,partner flew back pretty early in the playback. Focal bird did not move from its original position at all.
+17,02162024_trial14,2/19/24,10:38,1604,Less,2,Y,Y,7.52,3.8,4,2.2,Both birds made an approach and focal bird flew in closer and then started foraging after flying in closer. The approach distance was different than its closest distance since it made an approach and then went back to foraging on its original tree and then started foraging on closer trees towards us.
+18,02162024_trial15,2/19/24,11:25,1605,More,1,Y,N,15.6,10.6,2,0,Both birds in the pair started at relatively the same position. One bird was doing an aggressive vocal response and one was doing wing flicks. Both were behaviorally responding aggressively but not physically responding aggressively. 
+19,02212024_trial16,2/21/24,9:21,1606,Less,2,Y,N,20.2,11.8,3.4,0,Male was looking during playback and then went to foraging shortly after
+20,02212024_trial17,2/21/24,9:26,1607,Less,1,N,N,44.8,6.8,0,0,Was looking during playback but then retreated.
+21,02212024_trial18,2/21/24,10:23,1608,Control,3,N,N,13.2,8.6,0,0,"
 "
-22,02212024_trial19,2/21/24,11:21,1610,Less 3,N,N,13.4,3.4,0,0,10,4.2,Short vocal response and went back to foraging.
-23,02222024_trial20,2/22/24,9:35,1611,Control 2,N,N,23.8,10.4,0,0,23.8,10.4,Vocal response before and during our trial. Did not move from position or look that much.
-24,02222024_trial21,2/22/24,10:09,1612,More 1,N,N,19.6,5.6,0,0,19.6,5.6,Was looking during playback but neither the male nor female responded much to the call.
-25,02232024_trial22,2/23/24,11:05,1613,Control 1,N,N,14.6,7.6,0,0,14.6,7.6,Neither in the pair responded. Looked briefly but quickly went back to foraging 
-26,02262024_trial23,2/26/24,10:19,1614,More 3,N,N,6.2,8.2,0,0,11.2,5.2,"
+22,02212024_trial19,2/21/24,11:21,1610,Less,3,N,N,13.4,3.4,0,0,Short vocal response and went back to foraging.
+23,02222024_trial20,2/22/24,9:35,1611,Control,2,N,N,23.8,10.4,0,0,Vocal response before and during our trial. Did not move from position or look that much.
+24,02222024_trial21,2/22/24,10:09,1612,More,1,N,N,19.6,5.6,0,0,Was looking during playback but neither the male nor female responded much to the call.
+25,02232024_trial22,2/23/24,11:05,1613,Control,1,N,N,14.6,7.6,0,0,Neither in the pair responded. Looked briefly but quickly went back to foraging 
+26,02262024_trial23,2/26/24,10:19,1614,More,3,N,N,6.2,8.2,0,0,"
 "
-27,02262024_trial24,2/26/24,11:51,1615,Control 2,N,N,14.6,7.2,0,0,14.6,7.2,"
+27,02262024_trial24,2/26/24,11:51,1615,Control,2,N,N,14.6,7.2,0,0,"
 "
-28,,2/27/24,9:35,1616,More 1,N,N,11.4,0.2,0,0,11.4,0.2,"No vocal response. Both the female and male stood still the whole time, but were looking in the direction of the speaker. They both had their feathers fluffed up as if they were cold. Much colder and windier than previous days. "
-29,02292024_trial25,2/29/24,10:13,1617,Less 2,N,N,21.6,12.4,0,0,20.4,4.6,End position was further away in both height and distance. Looked briefly then went back to foraging shortly after.
-30,,2/29/24,10:34,1618,Less 1,N,N,14.6,12,0,0,14.6,4.8,No vocal response. Recorder died during trial but they did not make any calls during the trial. A neighboring nuthatch pair was responding.
-31,02292024_trial26,2/29/24,11:20,1619,More 2,N,N,23.2,4.4,0,0,23.2,3.2,"The were foraging most of the time. Female was looking in our direction for some time, but male remained foraging. The male had a small vocal response. I cut the audio in two on this trial because I was scared of the recorder dying. "
-32,03012024_trial27,3/1/24,9:45,1620,More 2,Y,Y,36.6,3.6,0,3.8,17.4,7.4,Negative approach but flew directly over a.u
-33,03012024_trial28,3/1/24,10:34,1621,Less 3,N,N,52.2,13.2,0,0,26.4,11.3,
-34,03052024_trial29,3/5/24,10:09,1622,More 3,N,N,14.4,10.6,0,0,18.8,12,No vocal response 
-35,03052024_trial30,3/5/24,10:53,1623,Less 1,N,N,27.8,7.6,0,0,21.2,5.6,No response. Started making vocal response when joined territory dispute.
-36,03082024_trial31,3/8/24,10:38,1624,More 1,Y,N,10.8,4.2,2.6,0,13.4,4.5,
-37,03082024_trial32,3/8/24,11:23,1625,Less 2,N,Y,19.4,0.2,0,2,12.6,2.2,
+28,,2/27/24,9:35,1616,More,1,N,N,11.4,0.2,0,0,"No vocal response. Both the female and male stood still the whole time, but were looking in the direction of the speaker. They both had their feathers fluffed up as if they were cold. Much colder and windier than previous days. "
+29,02292024_trial25,2/29/24,10:13,1617,Less,2,N,N,21.6,12.4,0,0,End position was further away in both height and distance. Looked briefly then went back to foraging shortly after.
+30,,2/29/24,10:34,1618,Less,1,N,N,14.6,12,0,0,No vocal response. Recorder died during trial but they did not make any calls during the trial. A neighboring nuthatch pair was responding.
+31,02292024_trial26,2/29/24,11:20,1619,More,2,N,N,23.2,4.4,0,0,"The were foraging most of the time. Female was looking in our direction for some time, but male remained foraging. The male had a small vocal response. I cut the audio in two on this trial because I was scared of the recorder dying. "
+32,03012024_trial27,3/1/24,9:45,1620,More,2,Y,Y,36.6,3.6,0,3.8,Negative approach but flew directly over a.u
+33,03012024_trial28,3/1/24,10:34,1621,Less,3,N,N,52.2,13.2,0,0,
+34,03052024_trial29,3/5/24,10:09,1622,More,3,N,N,14.4,10.6,0,0,No vocal response 
+35,03052024_trial30,3/5/24,10:53,1623,Less,1,N,N,27.8,7.6,0,0,No response. Started making vocal response when joined territory dispute.
+36,03082024_trial31,3/8/24,10:38,1624,More,1,Y,N,10.8,4.2,2.6,0,
+37,03082024_trial32,3/8/24,11:23,1625,Less,2,N,Y,19.4,0.2,0,2,
