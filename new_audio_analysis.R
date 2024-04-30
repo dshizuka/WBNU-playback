@@ -147,7 +147,28 @@ V=ggplot(data=global.data, aes(x=Treatment, y=V.app.d)) +
   theme_classic()
 V
 
+p=ggplot(data=global.data, aes(x=Treatment, y=n_quank)) +
+  geom_point() +
+  theme_classic()
+p
 
+p=ggplot(data=global.data, aes(x=N_Dnotes, y=n_quank)) +
+  geom_point() +
+  theme_classic()
+p
+
+p=ggplot(data=global.data, aes(x=Treatment, y=quank_bout)) +
+  geom_point() +
+  theme_classic()
+p
+
+fit_nquank=aov(n_quank~Treatment, data=global.data)
+summary(fit_nquank)
+TukeyHSD(fit_nquank)
+
+fit_quankbout=aov(quank_bout~Treatment, data=global.data)
+summary(fit_quankbout)
+TukeyHSD(fit_quankbout)
 
 #fit_HD=aov(HD~Treatment+factor(season), data=global.data)
 #summary(fit_HD)
@@ -163,19 +184,11 @@ p=ggplot(data=global.data, aes(x=Treatment, y=tot.notes)) +
   theme_classic() 
 p
 
-fit_quanks=aov(tot.quanks~Treatment+factor(season), data=global.data )
+fit_quanks=aov(tot.quanks~Treatment, data=global.data )
 summary(fit_quanks)
 TukeyHSD(fit_quanks)
 
-fit_quanks_s1=aov(tot.quanks~Treatment, data=global.data %>% filter(season==1))
-summary(fit_quanks_s1)
-TukeyHSD(fit_quanks_s1)
 
-
-
-fit_quanks_s2=aov(tot.quanks~Treatment, data=global.data %>% filter(season==2))
-summary(fit_quanks_s2)
-TukeyHSD(fit_quanks_s2)
 
 fit_quanks=aov(tot.quanks~Treatment, data=global.data )
 summary(fit_quanks)
