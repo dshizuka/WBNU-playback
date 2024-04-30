@@ -78,7 +78,7 @@ behavior.data
 
 #merge the behavior and audio data
 global.data=left_join(behavior.data, audio.dat, by=c("Recording"="filename"))
-global.data=global.data %>% mutate(tot.notes=rowSums(.[16:20])) %>% mutate(tot.quanks=rowSums(.[c(16, 17, 18)]))
+global.data=global.data %>% mutate(tot.notes=rowSums(.[c(15, 16, 17, 18, 19)])) %>% mutate(tot.quanks=rowSums(.[c(15, 16, 17)]))
 
 global.data
 
@@ -90,6 +90,7 @@ names(global.data)
 global.data$Treatment
 global.data$HD
 global.data$VD
+global.data$V.app.d
 #global.data$no.bouts
 
 
@@ -105,7 +106,7 @@ DIAH_1[DIAH_1=="Y"]=1
 DIAH_1[DIAH_1=="N"]=0
 DIAH_1=as.numeric(DIAH_1)
 DIAH_1
-sum(DIAH~global.data$Treatment)
+#sum(DIAH~global.data$Treatment)
 
 
 #ANOVA for HD
@@ -120,7 +121,7 @@ summary(fit_VD)
 summary(fit_bout)
 summary(fit_DICDV)
 summary(fit_DIAH)
-#summary(fit_boutlength)
+summary(fit_boutlength)
 
 #Post-hoc comparisons (Tukey Honest Significant Differences test)
 TukeyHSD(fit_HD)
@@ -136,22 +137,28 @@ boxplot(HD~Treatment, data=global.data)
 #Boxplot for HD, looking at seasonal difference
 p=ggplot(data=global.data, aes(x=Treatment, y=HD)) +
   geom_boxplot() +
-  facet_wrap(~season) +
   theme_classic()
-#p
+p
 
-fit_HD=aov(HD~Treatment+factor(season), data=global.data)
-summary(fit_HD)
-TukeyHSD(fit_HD)
+#Boxplot for HD, looking at seasonal difference
+V=ggplot(data=global.data, aes(x=Treatment, y=V.app.d)) +
+  geom_boxplot() +
+  theme_classic()
+V
 
-fit_bout=aov(no.bouts~Treatment+factor(season), data=global.data)
 
-TukeyHSD(fit_HD)
+
+#fit_HD=aov(HD~Treatment+factor(season), data=global.data)
+#summary(fit_HD)
+#TukeyHSD(fit_HD)
+
+#fit_bout=aov(no.bouts~Treatment+factor(season), data=global.data)
+
+#TukeyHSD(fit_HD)
 
 #looking at number of quanks produced by treatment and season
-p=ggplot(data=global.data, aes(x=Treatment, y=tot.quanks)) +
+p=ggplot(data=global.data, aes(x=Treatment, y=tot.notes)) +
   geom_boxplot() +
-  facet_wrap(~season) +
   theme_classic() 
 p
 
@@ -186,9 +193,8 @@ TukeyHSD(fit_quankrate)
 #looking at number of quanks produced by treatment and season
 p=ggplot(data=global.data, aes(x=Treatment, y=double)) +
   geom_boxplot() +
-  facet_wrap(~season) +
   theme_classic() 
-#p
+p
 
 
 #is there a relationship between approaching and vocalizing
