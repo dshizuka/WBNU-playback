@@ -79,7 +79,7 @@ behavior.data
 
 #merge the behavior and audio data
 global.data=left_join(behavior.data, audio.dat, by=c("Recording"="filename"))
-global.data=global.data %>% mutate(tot.notes=rowSums(.[c(15, 16, 17, 18, 19)])) %>% mutate(tot.quanks=rowSums(.[c(15, 16, 17)]))
+global.data=global.data %>% mutate(tot.notes=rowSums(.[c(16, 17, 18, 19, 20)])) %>% mutate(tot.quanks=rowSums(.[c(16, 17, 18)]))
 
 global.data
 
@@ -142,13 +142,13 @@ p=ggplot(data=global.data, aes(x=Treatment, y=HD)) +
 p
 
 #Boxplot for HD, looking at seasonal difference
-V=ggplot(data=global.data, aes(x=Treatment, y=V.app.d)) +
+V=ggplot(data=global.data, aes(x=Treatment, y=VD)) +
   geom_boxplot() +
   theme_classic()
 V
 
 p=ggplot(data=global.data, aes(x=Treatment, y=n_quank)) +
-  geom_point() +
+  geom_point(color=gray(0.3, 0.5)) +
   theme_classic()
 p
 
@@ -157,7 +157,7 @@ p=ggplot(data=global.data, aes(x=N_Dnotes, y=n_quank)) +
   theme_classic()
 p
 
-p=ggplot(data=global.data, aes(x=Treatment, y=quank_bout)) +
+p=ggplot(data=global.data, aes(x=Treatment, y=tot.quanks)) +
   geom_point() +
   theme_classic()
 p
@@ -169,6 +169,8 @@ TukeyHSD(fit_nquank)
 fit_quankbout=aov(quank_bout~Treatment, data=global.data)
 summary(fit_quankbout)
 TukeyHSD(fit_quankbout)
+
+
 
 #fit_HD=aov(HD~Treatment+factor(season), data=global.data)
 #summary(fit_HD)
@@ -215,4 +217,23 @@ p
 
 plot(tot.quanks~HD, data=global.data, xlim=c(0,20), col=season, pch=19)
 
+###PCA
 
+names(global.data)
+
+use.data=global.data %>% select(Recording, Treatment, HD, VD, tot.quanks, n_quank, quank_bout) %>% drop_na()
+
+pr=princomp(~tot.quanks + n_quank + quank_bout + HD + VD, data=use.data)
+biplot(pr)
+
+pr$loadings
+str(pr)
+pr$scores
+
+pc1=pr$scores[,1]
+use.data$pc1=pc1
+
+p=ggplot(data=use.data, aes(x=Treatment, y=pc1)) +
+  geom_point() +
+  theme_classic() 
+p
