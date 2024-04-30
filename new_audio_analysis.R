@@ -44,8 +44,6 @@ for(i in 1:length(dat.list)){
 #this snip of code will tell us which dataset in the list is empty
 which(sapply(dat.list, nrow)==0)
 
-
-
 #if no.bouts=== -1 
 
 
@@ -56,12 +54,15 @@ dat.comb=bind_rows(dat.list[-which(sapply(dat.list, nrow)==0)
 
 dat.comb=dat.comb %>% mutate(call=str_replace_all(call, c("Quank"="quank", "Double"="double", "Squeak"="squeak", "quank "="quank", "double "="double")))
 
-table(dat.comb$call)
+#this creates a dataframe with each trial as rows, and then number of bouts of each call type as columns
+n_bouts_each=dat.comb %>% group_by(filename, call) %>% summarise(n.bouts=n()) %>% mutate(call=paste(call, "_bout", sep="")) %>% pivot_wider(id_cols=filename, names_from=call, values_from = n.bouts)
+
 
 #gather all the data into a clean dataset
-audio.dat=dat.comb %>% group_by(filename, call) %>% summarise(n=sum(note.number), avg.rate=mean(rate)) %>% pivot_wider(id_cols=filename,names_from=call, values_from=c(n, avg.rate)) %>% replace_na(list(n_double=0, n_quank=0, n_wurp=0, n_rapid=0, n_squeak=0))
+#added number of bouts of each call type in the global data.
+audio.dat=dat.comb %>% group_by(filename, call) %>% summarise(n=sum(note.number), avg.rate=mean(rate)) %>% pivot_wider(id_cols=filename,names_from=call, values_from=c(n, avg.rate)) %>% replace_na(list(n_double=0, n_quank=0, n_wurp=0, n_rapid=0, n_squeak=0)) %>% left_join(n_bouts_each)
 
-audio.dat
+audio.dat 
 
 quankrate.dat=dat.comb%>% mutate(str_replace_all(call, c("rapid"="quank", "double"="quank"))) %>% filter(call=="quank") %>% group_by(filename) %>% summarise(avg.quankrate=mean(rate)) 
 
