@@ -11,7 +11,7 @@ library(tidyverse)
 
 
 #now import all the february selection tables using lapply()
-dat.list=lapply(list.files("Data/2024 audio data", full.names=T), function(x) read.table(x, sep="\t", header=T, na.strings=c("NA")))
+dat.list=lapply(list.files("Data/2024 audio data", full.names=T), function(x) read.table(x, sep="\t", header=T, na.strings="NA"))
 
 #dat.list
 
@@ -60,7 +60,7 @@ n_bouts_each=dat.comb %>% group_by(filename, call) %>% summarise(n.bouts=n()) %>
 
 #gather all the data into a clean dataset
 #added number of bouts of each call type in the global data.
-audio.dat=dat.comb %>% group_by(filename, call) %>% summarise(n=sum(note.number), avg.rate=mean(rate)) %>% pivot_wider(id_cols=filename,names_from=call, values_from=c(n, avg.rate)) %>% replace_na(list(n_double=0, n_quank=0, n_wurp=0, n_rapid=0, n_squeak=0)) %>% left_join(n_bouts_each)
+audio.dat=dat.comb %>% group_by(filename, call) %>% summarise(n=sum(note.number), avg.rate=mean(rate)) %>% pivot_wider(id_cols=filename,names_from=call, values_from=c(n, avg.rate)) %>% replace_na(list(n_double=0, n_quank=0, n_wurp=0, n_rapid=0, n_squeak=0)) %>% replace_na(list(avg.rate_double=0, avg.rate_quank=0, avg.rate_wurp=0, avg.rate_rapid=0, avg.rate_squeak=0)) %>% left_join(n_bouts_each) %>% mutate(total_notes=n_double+n_quank+n_rapid+n_squeak+n_wurp)
 
 audio.dat 
 
@@ -88,10 +88,10 @@ write.csv(global.data, "global.data_240426.csv")
 
 
 names(global.data)
-global.data$Treatment
-global.data$HD
-global.data$VD
-global.data$V.app.d
+# global.data$Treatment
+# global.data$HD
+# global.data$VD
+# global.data$V.app.d
 #global.data$no.bouts
 
 
@@ -109,6 +109,13 @@ DIAH_1=as.numeric(DIAH_1)
 DIAH_1
 #sum(DIAH~global.data$Treatment)
 
+ggplot(data=global.data, aes(x=Treatment, y=avg.rate_quank)) +
+  geom_boxplot() +
+  theme_classic()
+
+fit=aov(avg.rate_quank~Treatment, data=global.data)
+summary(fit)
+TukeyHSD(fit)
 
 #ANOVA for HD
 fit_HD=aov(HD~Treatment, data=global.data)
@@ -116,13 +123,14 @@ fit_VD=aov(VD~Treatment, data=global.data)
 #fit_bout=aov(no.bouts~Treatment, data=global.data)
 fit_DICDV=aov(DICDV_1~Treatment, data=global.data)
 fit_DIAH=aov(DIAH_1~Treatment, data=global.data)
-#fit_boutlength=aov(mean.bout.length~Treatment, data=global.data)
 summary(fit_HD)
 summary(fit_VD)
 summary(fit_bout)
 summary(fit_DICDV)
 summary(fit_DIAH)
-summary(fit_boutlength)
+
+fit=glm(tot.notes~Treatment, data=global.data)
+summary(fit)
 
 #Post-hoc comparisons (Tukey Honest Significant Differences test)
 TukeyHSD(fit_HD)
